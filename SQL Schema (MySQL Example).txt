@@ -1,0 +1,35 @@
+CREATE TABLE users (
+    userid INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    join_date DATE
+);
+
+CREATE TABLE songs (
+    song_id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(100) NOT NULL,
+    artist VARCHAR(100) NOT NULL,
+    album VARCHAR(100),
+    genre VARCHAR(50),
+    duration VARCHAR(10),
+    release_year INT
+);
+
+CREATE TABLE playlists (
+    playlist_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    created_by INT,
+    is_premade BOOLEAN,
+    creation_date DATE,
+    FOREIGN KEY (created_by) REFERENCES users(userid)
+);
+
+CREATE TABLE playlistsongs (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    playlist_id INT,
+    song_id INT,
+    added_date DATE,
+    FOREIGN KEY (playlist_id) REFERENCES playlists(playlist_id),
+    FOREIGN KEY (song_id) REFERENCES songs(song_id)
+);
